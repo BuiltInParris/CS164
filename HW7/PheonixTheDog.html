@@ -1,0 +1,193 @@
+<!-- This script and webpage written by Stevie Parris using Drexel's materials. -->
+<HTML>
+<HEAD>
+<TITLE> Pheonix The Dog </TITLE>
+<SCRIPT Language="JavaScript"> //initialize script language 
+	function initialize(form){ //initializes form, start up applications
+	form.state.value = "Bored" //initialize the state of the animal
+	form.counter.value = 0   //set the counter to 0
+	dostate(form) //run the state form to update the sound and action
+	setTimeout("running(document.forms[0])",2000) //runs the function running in 2000 milliseconds
+	return ""
+	}
+	</SCRIPT>
+	<SCRIPT Language="JavaScript">
+	function petcommand(form){ //this is used for the input in the command box. It resets values by on entry using regular expression
+	var mycommand = form.PetCommand.value; //set command value
+	var patt1= /hello/i;
+	if (patt1.test(mycommand) == true) //if pattern is contained in command
+	{
+		form.state.value = "Happy"; //set state
+		dostate(form); //run dostate function
+		return ""
+		}
+	var patt2=/sit/i;	//repeat same thing with different pattern
+	if (patt2.test(mycommand) == true)
+	{
+		form.state.value = "Bored";
+		dostate(form);
+		return ""
+	}
+	var patt3=/stay/i;
+	if (patt3.test(mycommand) == true)
+	{
+		form.state.value = "Lonely";
+		dostate(form);
+		return ""
+	}
+	var patt4=/treat/i;
+	if (patt4.test(mycommand) == true)
+	{
+		form.state.value = "Hungry";
+		dostate(form);
+		return ""
+	}
+		var patt5=/sell/i;
+	if (patt5.test(mycommand) == true)
+	{
+		window.location = "http://www.puppyfind.com/" //redirect to new webpage
+		return ""
+	}
+		var patt6=/DIE/;
+	if (patt6.test(mycommand) == true)
+	{
+		window.location = "http://mytruetruth.com/wp-content/uploads/2012/03/puppy-dog-eyes.jpg"
+		return ""
+	}
+		var patt7=/don't poop in the house/;
+	if (patt7.test(mycommand) == true)
+	{
+		form.PetSound.value = "WOOF WOOF WOOF!" //set pet sound
+		form.PetAction.value = "Poops." //set pet action
+		changeImage('pooper.jpg');
+		return ""
+	}
+	var patt8 = /phoenix/;
+	if (patt8.test(mycommand) == true)
+	{
+		form.PetSound.value = "WOOF WOOF WOOF!"
+		form.PetAction.value = "Looks up expectantly"
+		return ""
+	}
+	var patt9 = /walk/;
+	if (patt9.test(mycommand) == true)
+	{
+		form.PetSound.value = "ROOOOFH!!!"
+		form.PetAction.value = "Jumps Up"
+		return ""
+	}
+	var patt10 = /arrangeddoggymarriage/;
+	if (patt10.test(mycommand) == true)
+	{
+		form.PetSound.value = "woof?"
+		form.PetAction.value = "Raised Eyebrow."
+		return ""
+	}
+	}
+	</SCRIPT>
+	<SCRIPT Language="JavaScript">
+	function dostate(form){ //the do state function acquires the state of the animal and then changes its picture, action, and sound.
+	var state = form.state.value;
+	stateimg = state + '.jpg' //set image name
+	changeImage(stateimg) //change image to new image name
+	if (state == "Bored")
+	{
+		form.PetAction.value = "Chase Tail"
+		form.PetSound.value = "Bark"
+	}
+	else if (state == "Happy")
+	{
+		form.PetAction.value = "Wag Tail"
+		form.PetSound.value = "Bark"
+	}
+	else if (state == "Angry")
+	{
+		form.PetAction.value = "Claw"
+		form.PetSound.value = "Growl"
+	}
+	else if (state == "Hungry")
+	{
+		form.PetAction.value = "Beg"
+		form.PetSound.value = "Whine"
+	}
+	else if (state == "Lonely")
+	{
+		form.PetAction.value = "Puppydog Eyes"
+		form.PetSound.value = "Whimper"
+	}
+	return ""
+	}
+	function ifhit(form){ //if the hit button is used, changes state if appropriate and then runs dostate
+	var state = form.state.value;
+	if (state == "Bored" || state == "Hungry" || state == "Lonely")
+		{form.state.value = "Angry"}
+		dostate(form)
+		return ""
+	}
+	function ifpat(form){//same as ifhit with different state tests and runs if the pat button is clicked
+	var state = form.state.value;
+	if (state == "Bored" || state == "Lonely")
+		{form.state.value = "Happy"}
+		dostate(form)
+		return ""
+	}
+	function iffeed(form){//same as ifhit with different state tests and runs if the feed button is clicked
+	var state = form.state.value;
+	if (state == "Hungry")
+		{form.state.value = "Happy"}
+		dostate(form)
+		return ""
+	}
+	function running(form){ //changes state on a timer
+	form.counter.value++ //increments counters value
+	var state = form.state.value //set state value
+	var n = Math.random() //acquire random number from 0 to 1
+	if (state == "Bored" && n<0.4)
+        form.state.value = "Hungry"
+	else if (state == "Angry" && n<0.65)
+        form.state.value = "Bored"
+	else if (state == "Happy" && n<0.5)
+        form.state.value = "Bored"
+	else if (state == "Bored" && n<0.75)
+		form.state.value = "Lonely"
+dostate(form) //run dostate
+setTimeout("running(document.forms[0])",2000) //run this process again to keep it repeating (apparently not recursion?)
+return""
+}
+</SCRIPT>
+<SCRIPT type="text/javascript">
+    function changeImage(emotion) { //change the image based on emotion
+        document.getElementById("img").src=emotion;
+    }
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#23B14D" onload="initialize(document.forms[0])"><!-- Load form, set body color -->
+<P><H5 ALIGN=center><U><Font Size=18 Color="white">Pheonix The Dog!</U></P></Font><BR>
+<IMG id="img" SRC="Happy.jpg" WIDTH=200 HEIGHT=200 ALIGN=middle></H5>
+<P><FONT Color="black" Size=+2> 
+<CENTER>Meet Pheonix, my dog. He can be fun... if you know what he likes. </Center><P><Center>
+<FORM>
+<P>Pet Sound:<INPUT TYPE="text" NAME="PetSound" SIZE="20"> <!-- Text box displaying pet sounds -->
+<P>Pet Action:<INPUT TYPE="text" NAME="PetAction" SIZE="20"> <!-- Text box displaying pet actions -->
+<P>Talk:<INPUT TYPE="text" NAME="PetCommand" SIZE="20"> <!-- Text box used to input text that is tested by regular expression. -->
+<INPUT TYPE="hidden" NAME="state"> <!-- hidden state tracker -->
+<INPUT TYPE="hidden" NAME="counter">  <!-- hidden counter of pet movements -->
+<br>
+<input type="button" name="PetFeed" 
+	value="Feed" 
+	onClick="iffeed(this.form)" /> <!-- Feed button, used to make pet happy when hungry -->
+<input type="button" name="PetHit" 
+	value="Hit" 
+	onClick="ifhit(this.form)" /> <!-- Hit button, used to make pet angry -->
+<input type="button" name="PetPat" 
+	value="Pat" 
+	onClick="ifpat(this.form)" /> <!-- Pat button, used to make pet happy if bored or lonely -->
+<input type="button" name="Petcommand" 
+	value="Talk" 
+	onClick="petcommand(this.form)" /> <!-- Talk button, implements the input in the talk text box. -->
+<INPUT type = "button" NAME = restart 
+	value = "Click To Restart" 
+	onClick = "initialize(this.form)"> <!-- Restart button, calls the initialize function again -->
+	</FORM>
+</BODY>
+</HTML>

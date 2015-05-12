@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Countdown Clock</title>
+	<script>
+
+function countdownClock(tD) //targetDate
+{
+	var dt = new Date();
+	var mon = dt.getMonth();
+	var d = dt.getDay();
+//	var h = dt.getHour();
+//	document.write(h)
+	var min = dt.getMinutes();
+
+	var sec = dt.getSeconds();
+	if(tD.getMonth() != dt.getMonth())
+	{document.write("<br>")
+	document.write(tD.getMonth() - dt.getMonth() + " month.")}
+	if(tD.getDate() != dt.getDate())
+	{document.write("<br>")
+	document.write(tD.getDate() - dt.getDate() + " days.")}
+	if(tD.getHours() != dt.getHours())
+	{document.write("<br>")
+	document.write(23 - dt.getHours() - tD.getHours() + " hours.")}
+	if(tD.getMinutes() != dt.getMinutes())
+	{document.write("<br>")
+	document.write(60 - dt.getMinutes() - tD.getMinutes() + " minutes.")}
+	if(tD.getSeconds() != dt.getSeconds())
+	document.write("<br>")
+	document.write(60 - dt.getSeconds() - tD.getSeconds() + " seconds.")
+}
+</script>
+</head>
+
+<body>
+	<script>
+	var dat = new Date("December 25, 2013");
+	countdownClock(dat)
+	</script>
+	
+</body>
+</html>

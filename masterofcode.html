@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+body {
+
+margin:0 auto;
+
+background-image:URL('http://fc04.deviantart.net/fs9/i/2006/033/2/c/Matrix_code_by_phi_AU.jpg');
+
+background-attachment:fixed;
+
+background-repeat:repeat-y;
+
+}
+</style>
+  <meta charset="utf-8">
+  <title>MasterCode</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+//user is "finished typing," collect input
+function doneTyping () {
+    var name = document.getElementById('name_input').value;
+	closeElement('welcomepage');
+	closeElement('namepage'); 
+	showElement('homepage'); 
+}
+function closeElement(myelement)
+{
+document.getElementById(myelement).style.display="none";
+}
+function showElement(myelement)
+{
+document.getElementById(myelement).style.display='block';
+}
+function enterWebsite()
+{
+closeElement('namepage');
+closeElement('homepage');
+$( "#dialog" ).dialog({ autoOpen: false }, {title: "Change"}, { resizable: false });
+$( "#opener" ).click(function() {
+  $( "#dialog" ).dialog( "open" );
+  closeElement('welcomepage');
+  showElement('namepage');
+  var i = 1;
+})
+}
+</script>
+</head>
+<body onload="enterWebsite()">
+ <div id="welcomepage">
+<button id="opener" style='background: url("http://4.bp.blogspot.com/-fDgJmT5rzlM/Tq8SpW3ZcbI/AAAAAAAAA1I/l02iiclqKkA/s1600/tracking%2Bclub%2Bmeet%2B%2526%2BMisty%2BAlgonquin%2Bshots%2B106.jpg") no-repeat top left; color: #FFFFFF; height: 685px; width: 1350px; font: 75px helvetica, cursive'>Enter MasterCode</button>
+</div>
+<div id="namepage">
+<form id ='name_input'>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<center><input style="background-image:URL('https://waypointprod.blob.core.windows.net/blogfilestore/storage/blogs/headlines/2013/12/5/image.jpg');background-repeat:no-repeat;background-position: ; border: 50px solid black ; height:50px; width:350px; color: #FFFFFF; font: 45px helvetica, cursive;" type="text" value="Enter your name.">
+</br>
+<button id='submit_name' onclick='doneTyping(); return false;'>I Accept The Risks</button>
+</form>
+</div>
+<div id="homepage">
+<font size = "25" color = "white">
+<p id="demo" onload="getName()"></p>
+</font>
+</div>
+</body>
+</html>

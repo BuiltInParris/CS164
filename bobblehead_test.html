@@ -1,0 +1,305 @@
+<html>
+<!--
+  Bobble Head - Firefox/Internet Explorer version
+  Revised: JL Popyack, December 2009
+  Version: v3.6
+           Reduced functionality for use in CS 164/SE 101 labs,
+           Removed extraneous variables, calculations
+           Cleaned up "usingIE" instances
+  Version: v3.5
+           Rewrites spring equation to update cos(x), sin(x), exp(x) without
+		   using library calls
+  Version: v3.1
+           Uses Utley - some minor tweaking  
+  Version: v3.0
+           Uses spring equation to determine position of head  
+  Version: v2.0
+           Fixed problem with bounces outside window boundaries, reformatted  
+-->
+<head>
+<title>Bobble Head - Firefox/Internet Explorer version</title>
+<script language=JAVASCRIPT>
+<!-- Hide from uneducated browsers
+
+var SECONDS = 1000        // 1 second = 1000 milliseconds 
+
+var dt = Math.round(0.03333*SECONDS)  // time interval for updating position
+	
+var usingIE
+
+	function bobblehead(name,
+		head,body,
+		headURL,bodyURL,
+		headWidth, headHeight,
+		dt)	
+	{	
+		this.name = name
+		this.head = head
+		this.body = body
+		this.headURL = headURL
+		this.bodyURL = bodyURL
+		
+		usingIE = usingIE || head.pixelLeft
+		
+		if(usingIE)
+		{
+			this.x0    = head.pixelLeft   // initial x position
+			this.y0    = head.pixelTop    // initial y position
+		}
+		else
+		{
+			this.x0    = head.left   // initial x position
+			this.y0    = head.top    // initial y position
+		}
+
+		this.t     = new Number(0)          // simulation clock
+		this.tN    = new Number(8*SECONDS)  // duration of simulation, in seconds.
+		this.dt    = dt
+		
+		var a = document.getElementById("a_text").value // 30 
+		var b = document.getElementById("b_text").value // 0.125
+		var k = document.getElementById("k_text").value // 100
+		var m = document.getElementById("m_text").value // 0.25
+
+		// --------------------------------------------------------------
+		// Set initial values for ct, st, et, cdt, sdt, and edt here,
+		// replacing "" with formulas and values as appropriate:
+		// --------------------------------------------------------------
+				
+			this.ct    = 1
+			this.st    = 1
+			this.et    = 0
+			
+			this.cdt   = cos( sqrt((k/m-b*b)/(4*m))*dt/SECONDS )
+			this.sdt   = sin( sqrt((k/m-b*b)/(4*m))*dt/SECONDS )
+			this.edt   = exp( (-b/(2*m))*dt/SECONDS )
+
+		// --------------------------------------------------------------
+
+		var headImage = new Image()
+		headImage.src = headURL
+		
+		this.headHeight = headHeight
+		this.headWidth  = headWidth
+			
+		this.x  = this.x0
+		this.y  = this.y0
+		
+		this.inuse = false
+	}
+
+	function Init(bobhead,head)
+	{	
+		bobhead.inuse = true
+		bobhead.t     = new Number(0)     // simulation clock
+		bobhead.x  = bobhead.x0
+		bobhead.y  = bobhead.y0
+		
+		if(usingIE)
+		{
+			head.pixelLeft = bobhead.x0
+			head.pixelTop =  bobhead.y0
+		}
+		else
+		{
+			head.left = bobhead.x0
+			head.top =  bobhead.y0
+		}
+		
+		document.getElementById("BobbleButton").disabled = false
+		
+		setTimeout("wobble("+bobhead.name+")",dt)
+	}
+       
+    function wobble(bobhead)
+    {
+    	with(bobhead)
+		{
+			var a = document.getElementById("a_text").value //document.images[0].height/4 
+			var b = document.getElementById("b_text").value // 0.125
+			var k = document.getElementById("k_text").value // 100
+			var m = document.getElementById("m_text").value // 0.25
+			var tt = t/SECONDS
+			// tt is the current time.  It equals the previous time plus dt/SECONDS.  
+
+			if( t < tN )
+			{
+				var ct = cos(t+dt)
+				var st = sin(t+dt)
+				var et = exp(t+et)
+				
+					var alpha = -(b/(2*m))
+					var beta = Math.sqrt((k/m-b*b)/(4*m))
+					var Me = Math.exp( alpha*tt )
+					var Ms = Math.sin( beta*tt )
+					var Mc = Math.cos( beta*tt )
+
+					// y(t) = y0 
+					//      + a*exp( -(b/(2*m))*t )
+					//      * (  sin( sqrt((k/m-b*b)/(4*m))*t ) + cos( sqrt((k/m-b*b)/(4*m))*t ) )
+
+					var y = parseInt(y0,10) + Math.round( a*Me*( Ms + Mc ) )
+
+				// --------------------------------------------------------------
+				// Calculate ct, st and et here
+				// These are the values of cos(t), sin(t) and exp(t), calculated
+				// without use of Math.cos(t), Math.sin(t), Math.exp(t)
+				// Use these values to compute the new value of y
+				// --------------------------------------------------------------
+				
+
+				t = Math.round(t + dt)
+				
+				if(usingIE)
+				{
+					head.pixelLeft = parseInt(x,10)
+					head.pixelTop =  parseInt(y,10)
+				}
+				else
+				{
+					head.left = parseInt(x,10)
+					head.top =  parseInt(y,10)
+				}
+				setTimeout("wobble("+bobhead.name+")",dt)
+			}
+			else
+			{
+				bobhead.inuse = false
+				document.getElementById("BobbleButton").disabled = false
+			}
+		}
+    }
+	
+	function IE_innerResize(desiredWidth, desiredHeight)
+	{
+		var currentWidth,currentHeight
+		
+		if(usingIE)
+		{
+			currentWidth = document.body.clientWidth
+			currentHeight = document.body.clientHeight
+			var width = desiredWidth - currentWidth
+			var height = desiredHeight - currentHeight
+			window.resizeBy(width,height)
+		}
+		else
+		{
+			window.innerWidth = desiredWidth
+			window.innerHeight = desiredHeight
+		}
+	}
+
+// End hiding -->
+</script>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1" />
+</head>
+
+<body BGCOLOR="#990000" TEXT="#000066" LINK="#000066" VLINK="#0000CC" ALINK="#009933" 
+      onload="usingIE = (document.all)? true : false ;
+	          IE_innerResize(document.images[2].width+15,document.images[2].height+15)">
+<form>
+
+  <div ID="The_head" STYLE="position:absolute; z-index:7; left:522px; top:98px;">
+  	<img SRC="Utley_head.gif" WIDTH="159" HEIGHT="218" />
+  </div>
+  
+  <div ID="The_body" STYLE="position:absolute; z-index:5; left:507px; top:220px;">
+  	<img SRC="Utley_body.gif" WIDTH="200" HEIGHT="293" />
+  </div>
+  
+  <div ID="bk" STYLE="position:absolute; z-index:0; width:732px; height:549px; left:0px; top:0px;">
+  	<img SRC="CitizensBankPark_cropped_small.jpg" WIDTH="720" HEIGHT="540" />
+  </div>
+  
+  <div ID="BobbleButton" 
+       style="position:absolute; width:88px; height:30px; z-index:3; left: 20px; top: 10px;">
+
+	<input NAME="bobble_button" TYPE="BUTTON" ID="bobble_button" 
+	       onclick="if(thePerson.inuse==false) Init(thePerson,theHead)" VALUE="Bobble" />
+  </div>
+  
+  <div ID="a_textbox" 
+       style="position:absolute; width:88px; height:30px; z-index:3; left:20px; top: 52px;">
+       <b><font COLOR="#990000">a</font></b>&nbsp;&nbsp;
+       <input NAME="a_text" TYPE="TEXT" ID="a_text" value=30 SIZE="20" width=15 />
+  </div>
+
+  <div ID="b_textbox" 
+       style="position:absolute; width:88px; height:30px; z-index:3; left:20px; top: 92px;">
+       <b><font COLOR="#990000">b</font></b>&nbsp;&nbsp;
+       <input NAME="b_text" TYPE="TEXT" ID="b_text" value=0.125 SIZE="20" width=15 />
+  </div>
+
+  <div ID="k_textbox" 
+       style="position:absolute; width:88px; height:30px; z-index:3; left:20px; top: 132px;">
+       <b><font COLOR="#990000">k</font></b>&nbsp;&nbsp;
+       <input NAME="k_text" TYPE="TEXT" ID="k_text" value=100 SIZE="20" width=15 />
+  </div>
+
+  <div ID="m_textbox" 
+       style="position:absolute; width:88px; height:30px; z-index:3; left:20px; top: 172px;">
+       <b><font COLOR="#990000">m</font></b>&nbsp;&nbsp;
+       <input NAME="m_text" TYPE="TEXT" ID="m_text" value=0.25 SIZE="20" width=15 />
+  </div>
+  
+  <div ID="TopLayer" 
+       style="position:absolute; width:720px; height:45px; z-index:6; left:0px; top:495px;">
+       
+    <table WIDTH="720" HEIGHT="45" BORDER="1" 
+           cellpadding="4" CELLSPACING="0" BORDERCOLOR="#000066" BGCOLOR="#990000">
+      <tr>
+        <td>
+          <table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+            <tr>
+              <th SCOPE="col">
+                <div ALIGN="LEFT">
+                <b><font COLOR="#FFFFFF" SIZE="+1" FACE="Georgia, Times New Roman, Times, serif">
+                   Virtual Bobblehead
+                </font></b></div>
+              </th>
+              <th SCOPE="col">
+                <div ALIGN="RIGHT">
+                <b><font COLOR="#FFFFFF" SIZE="-2" FACE="Arial, Helvetica, sans-serif">
+                  Another product from the twisted mind of 
+                  <a HREF="mailto:JPopyack@CS.Drexel.edu?Subject=Virtual Bobblehead">
+                     JL Popyack</a> <i>JPopyack@CS.Drexel.edu</i>
+                </font></b></div>
+              </th>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</form>
+
+<script LANGUAGE="JavaScript" TYPE="text/JavaScript">
+<!--
+	var theHeadURL       = document.images[0].src
+	var theBodyURL       = document.images[1].src
+	var theBackgroundURL = document.images[2].src
+
+	var theHead, theBody
+	
+	if(usingIE)
+	{
+		theHead = document.all.The_head.style
+		theBody = document.all.The_body.style
+	}
+	else
+	{
+		theHead = document.getElementById("The_head").style
+		theBody = document.getElementById("The_body").style
+	}
+
+
+	var thePerson = new bobblehead("thePerson",theHead,theBody,
+		                           theHeadURL,theBodyURL,
+		                           document.images[0].width, document.images[0].height,
+		                           dt)
+
+// End hiding -->
+</script>
+</body>
+</html>

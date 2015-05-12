@@ -1,0 +1,97 @@
+
+<html><!--
+  CS 164 Fall 2011
+  Stevie's Homepage!
+  Name: Stevie Parris
+  Date: September 26, 2013
+--><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+  <title>Mateo's Pizza</title>
+	<script type="text/javascript">
+	function checkrates()
+	{
+	var rates;
+	if (document.getElementByID("Small").checked == true)
+	{rates = "Small"}
+	if (document.getElementByID("Medium").checked == true)
+	{rates = "Medium"}
+	if (document.getElementByID("Large").checked == true)
+	{rates = "Large"}
+	if (document.getElementByID("X-Large").checked == true)
+	{rates = "X-Large"}
+	if (document.getElementByID("OMG").checked == true)
+	{rates = "OMG"}
+	alert('crap')
+	}
+	</script>
+
+<style type="text/css"></style></head>
+	<body vlink="white" bgcolor="black">
+	<font color="#FFFFCC" face="Verdana, Arial, Helvetica, sans-serif">
+	
+	<div id="rates">
+	<form name='pizzasize'> Pizza Size: 
+	<br />
+	<input type=radio id="Small" name="pizzasize" value="Small" /> Small
+	<br />
+	<input type=radio id="Medium" name="pizzasize" value="Medium" /> Medium
+	<br />
+	<input type=radio id="Large" name="pizzasize" value="Large" /> Large
+	<br />
+	<input type=radio id="X-Large" name="pizzasize" value="X-Large" /> X-Large
+	<br />
+	<input type=radio id="OMG" name="pizzasize" value="OMG" /> OMG
+	<p>
+	<form/>
+	
+	<form name='pizzacrust'> Crust Type: 
+	<br />
+	<input type=radio id="Thin" name="pizzacrust" value="Thin" /> Thin
+	<br />
+	<input type=radio id="Thick" name="pizzacrust" value="Thick" /> Thick
+	<br />
+	<input type=radio id="Sicilian" name="pizzacrust" value="Sicilian" /> Sicilian
+	<p>
+	<form/>
+	
+	<form name='pizzatopping'> Topping:
+	<select name='question'>
+	<option>none</option>
+	<option>pepperoni</option>
+	<option>sausage</option>
+	<option>mushrooms</option>
+	<option>black olives</option>
+	<option>pineapple</option>
+	<option>buffalo chicken</option>
+	<option>french fries</option>
+	<option>bbq sauce</option>
+	</select>
+	</form>
+	
+	<script>
+	checkrates()
+	</script>
+	<form>
+	<input type="submit" value="Submit">
+	</form>
+	
+	<form>
+    <textarea name="EvalTextArea" 
+    cols=40 rows=10 wrap=virtual>  
+    
+    </textarea>
+    <input type="reset" />
+	</form>
+	
+	<h1>      
+	<hr>
+	<i>
+	<h>HW 5</h>
+	</i>
+	</h1>
+	  <hr>
+	</br>
+	This page is about pizzas!
+	</font>
+</body>
+</html>

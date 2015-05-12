@@ -1,0 +1,187 @@
+<HTML>
+<!--
+    Quarterback Rating Form
+    JL Popyack, October 2003
+    
+    This form computes a quarterback's rating according
+    to the formula used by the National Football League,
+    but has deliberately been left incomplete:
+    
+    Although the formulas are correct, they do not 
+    take into account that the various averages used
+    (completion average, yardage average, etc.) are
+    not to fall below 0 or above 2.375 .
+    
+    Also, no provision has been made to prevent division
+    by 0. 
+        
+    For further information, see
+    
+    "NFL quarterback rating formula",
+      http://NFL.com/NFL_news_981202qbrate.html
+
+-->
+<HEAD>
+<TITLE>Rating the Quarterback</TITLE>
+<script LANGUAGE="JavaScript"><!-- hide from uneducated browsers
+
+	function QB_rating(form)
+	{
+	  // retrieve information from form
+	  
+	  var name = form.name.value
+	  var A = form.Attempts.value
+	  var C = form.Completions.value
+	  var Y = form.Yards.value
+	  var T = form.Touchdowns.value
+	  var I = form.Interceptions.value
+	  
+	  var completionAvg = ( C/A - 0.3 )/0.2
+	  var yardageAvg = ( Y/A - 3 )/4
+	  var touchdownAvg = ( T/A )/0.05
+	  var interceptionAvg = ( 0.095 - (I/A) )/0.04
+if(completionAvg > 2.375)
+completionAvg = 2.375
+else if(completionAvg < 0)
+completionAvg = 0
+
+if(yardageAvg > 2.375)
+yardageAvg = 2.375
+else if(yardageAvg < 0)
+yardageAvg = 0
+
+if(touchdownAvg > 2.375)
+touchdownAvg = 2.375
+else if(touchdownAvg < 0)
+touchdownAvg = 0
+
+if(interceptionAvg > 2.375)
+interceptionAvg = 2.375
+else if(interceptionAvg < 0)
+interceptionAvg = 0
+
+	  var result = ( completionAvg + yardageAvg + touchdownAvg + interceptionAvg )*100/6
+	  
+	  form.rating.value = result
+	  form.transcript.value += form.name.value + ": " + result + "\n"
+
+	  return ""
+	}
+
+  // end hiding from uneducated browsers  --></SCRIPT>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+<BODY BGCOLOR=silver>
+<H1><BR>
+</H1>
+<FORM NAME="QBRating" METHOD="post" ACTION="">
+  <TABLE WIDTH="450" BGCOLOR="#336666">
+    <TR VALIGN="MIDDLE"> 
+      <TD><BLOCKQUOTE>
+          <P><FONT COLOR="#FFFFFF" SIZE="5" FACE="Verdana, Arial, Helvetica, sans-serif"><B>QUARTERBACK 
+            RATING</B></FONT></P>
+        </BLOCKQUOTE></TD>
+      <TD><CENTER>
+          <FONT COLOR="#FFFFFF" SIZE="5" FACE="Verdana, Arial, Helvetica, sans-serif"><B><IMG SRC="football_helmet.gif" WIDTH="153" HEIGHT="132"></B></FONT> 
+        </CENTER></TD>
+    </TR>
+    <TR> 
+      <TD VALIGN="TOP"> <BLOCKQUOTE> 
+          <P><B><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><I>Enter 
+            statistics for a quarterback below and click the button to compute 
+            their rating. Compute statistics for multiple quarterbacks and all 
+            results are shown in the Transcript box.</I></FONT></B> 
+          <P>&nbsp;
+          <P><B><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif">Quarterback's 
+            Name</FONT></B> <FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><BR>
+            <B> 
+            <INPUT TYPE=text NAME=name VALUE="" SIZE=50>
+            </B> </FONT> 
+          <P><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><B>Attempts 
+            (A) </B><BR>
+            <INPUT TYPE="text" NAME="Attempts">
+            </FONT></P>
+          <P><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><B>Completions 
+            (C) </B> <BR>
+            <INPUT TYPE="text" NAME="Completions">
+            </FONT> 
+          <P><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><B>Yards 
+            (Y) </B> <BR>
+            <INPUT TYPE="text" NAME="Yards">
+            </FONT></P>
+          <P><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><B>Interceptions 
+            (I) </B><BR>
+            <INPUT TYPE="text" NAME="Interceptions">
+            </FONT></P>
+          <P><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><B>Touchdowns 
+            (T) </B><BR>
+            <INPUT TYPE="text" NAME="Touchdowns">
+            </FONT></P>
+          <P> <FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"> 
+            <INPUT TYPE=button NAME=rate_em VALUE="Compute QB Rating" onClick="QB_rating(this.form)">
+            </FONT> 
+          <HR>
+          <P><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"><I><B>Quarterback 
+            Rating:</B></I> </FONT> <FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"> 
+            <INPUT TYPE=text NAME=rating VALUE="">
+            </FONT> 
+          <H3><FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif">Transcript:</FONT></H3>
+          <P> <FONT COLOR="#FFFFFF" FACE="Verdana, Arial, Helvetica, sans-serif"> 
+            <TEXTAREA NAME=transcript ROWS=12 COLS=41 WRAP=virtual VALUE=""></TEXTAREA>
+            </FONT> 
+          <P><FONT COLOR="#FFFFFF"> 
+            <INPUT NAME="reset" TYPE=reset VALUE="Reset">
+            </FONT></BLOCKQUOTE></TD>
+      <TD VALIGN="TOP"> <TABLE WIDTH="50%" BORDER="0" ALIGN="CENTER" BGCOLOR="#000000">
+          <TR> 
+            <TD> <TABLE CELLPADDING="8"  BGCOLOR="#FFFFCC" CELLSPACING="6">
+                <TR> 
+                  <TD> <P> <B><FONT SIZE="+1" FACE="Arial, Helvetica, sans-serif">A 
+                      Nod to the QB Rating<A HREF="#footnote">*</A> </FONT></B></P>
+                    <P> <I>We know 100 is good, 50 is bad, and 158.3 is the absolute 
+                      best possible. How to get there is a mystery we hoped to 
+                      unravel.</I> </P>
+                    <P> <I>Here is the actual formula:</I> </P>
+                    <P ALIGN="CENTER"> <IMG SRC="qb_rating_formula.gif" WIDTH="310" HEIGHT="90"> 
+                    </P>
+                    <P ALIGN="CENTER"><FONT SIZE="-2" FACE="Arial, Helvetica, sans-serif">C=completions, 
+                      Y=yards, T=touchdowns, I=interceptions, A=attempts</FONT></P>
+                    <P><I>Lou Bloomfield, a University of Virginia physics professor 
+                      who teaches a course called How Things Work, explains the 
+                      concept:</I></P>
+                    <P><I><FONT SIZE="-1"> </FONT></I><FONT SIZE="-1" FACE="Arial, Helvetica, sans-serif">As 
+                      long as a passer hasn&#8217;t saturated one of the measures 
+                      by doing so well or so poorly that he gets a special-case 
+                      score of zero or 2.375, the calculation simplifies enormously. 
+                      A little basic algebra reduces the whole thing to:</FONT></P>
+                    <P ALIGN="CENTER"><FONT FACE="Arial, Helvetica, sans-serif"><BR>
+                      <B>Completion percentage x 0.833<BR>
+                      <FONT COLOR="#990000">+</FONT><BR>
+                      yards x 4.167<BR>
+                      <FONT COLOR="#990000">+</FONT><BR>
+                      touchdown percentage x 3.334<BR>
+                      <FONT COLOR="#990000">+</FONT><BR>
+                      interception percentage x 4.166<BR>
+                      <FONT COLOR="#990000">+</FONT><BR>
+                      2.083</B></FONT></P>
+                    <HR WIDTH="40%" SIZE="1"> <P ALIGN="CENTER"><B><FONT FACE="Arial, Helvetica, sans-serif">QB 
+                      rating</FONT></B></P>
+                    <P><I><FONT SIZE="-1">*<A NAME="footnote"></A>Reproduced from 
+                      &quot;QB School: A Nod to the QB Rating&quot;, by Gene Wang 
+                      and Steve Argeris, <B>The Washington Post</B>, Wed. Sept 
+                      3, 2003, p. H5.</FONT></I></P></TD>
+                </TR>
+              </TABLE></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+  </TABLE>
+<P>&nbsp;</P>
+  <P> 
+  <P>&nbsp; 
+</FORM>
+<HR>
+<A HREF="mailto:JPopyack@CS.Drexel.edu?Subject=%27Rating%20the%20Quarterback%27"><FONT SIZE="-2"><I>JL 
+Popyack</I></FONT></A><FONT SIZE="-2"><I>, Oct. 2003</I></FONT>
+</BODY>
+</HTML>

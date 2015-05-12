@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE> Virtual Pet Interface </TITLE>
+<SCRIPT Language="JavaScript">
+	function initialize(form){
+	form.state.value = "Bored"
+	dostate(this.form)
+	alert("gooo")
+	}
+	</SCRIPT>
+	<SCRIPT Language="JavaScript">
+	function dostate(form){
+	var state = form.state.value;
+	if (state == "Bored")
+	{
+		form.PetAction.value = "Chase Tail"
+		form.PetSound.value = ""
+	}
+	else if (state == "Happy")
+	{
+		form.PetAction.value = "Wag Tail"
+		form.PetSound.value = "Bark"
+	}
+	else if (state == "Angry")
+	{
+		form.PetAction.value = ""
+		form.PetSound.value = "Growl"
+	}
+	else if (state == "Hungry")
+	{
+		form.PetAction.value = "Beg"
+		form.PetSound.value = "Whine"
+	}
+	else if (state == "Lonely")
+	{
+		form.PetAction.value = "Chase Tail"
+		form.PetSound.value = "Whimper"
+	}
+	return ""
+	}
+	function ifhit(form){
+	var state = form.state.value;
+	if (state == "Bored" || state == "Hungry" || state == "Lonely")
+		{form.state.value = "Angry"}
+		dostate(form)
+		return ""
+	}
+	function ifpat(form){
+	var state = form.state.value;
+	if (state == "Bored" || state == "Lonely")
+		{form.state.value = "Happy"}
+		dostate(form)
+		return ""
+	}
+	function iffeed(form){
+	var state = form.state.value;
+	if (state == "Hungry")
+		{form.state.value = "Happy"}
+		dostate(form)
+		return ""
+	}
+	function Simulate(form){
+form.counter.value++
+var state = form.state.value
+var state = form.state.value
+var n = Math.random()
+if (state == "Happy" && n<0.4)
+        form.state.value = "Tired"
+else if (state == "Sick" && n<0.65)
+        form.state.value = "Itchy"
+else if (state == "Excited" && n<0.5)
+         form.state.value = "Happy"
+dostate(form)
+setTimeout("Simulate(document.forms[0])",1000)
+return""
+}
+	
+	}
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#23B14D"">
+<P><H5 ALIGN=center><U><Font Size=18 Color="white">Pheonix The Dog!</U></P></Font><BR>
+<IMG SRC="happy.jpg" WIDTH=200 HEIGHT=200 ALIGN=middle></H5>
+<P><FONT Color="black" Size=+2> 
+<CENTER>Meet Pheonix, my dog. He can be fun... if you know what he likes. </Center><P><Center>
+<FORM>
+<P>Pet Sound:<INPUT TYPE="text" NAME="PetSound" SIZE="20">
+<P>Pet Action:<INPUT TYPE="text" NAME="PetAction" SIZE="20">
+<P>Pet State:<INPUT TYPE="text" NAME="state">
+<P>Step Counter:<INPUT TYPE="text" NAME="counter"> 
+<br>
+<input type="button" name="PetFeed" 
+	value="Feed" 
+	onClick="iffeed(this.form)" />
+<input type="button" name="PetHit" 
+	value="Hit" 
+	onClick="ifhit(this.form)" />
+<input type="button" name="PetPat" 
+	value="Pat" 
+	onClick="ifpat(this.form)" />
+<INPUT TYPE = "button" NAME = restarter VALUE = "Click To Restart" onClick = "initialize(this.form)">
+<button onClick="initialize(this.form)" /> eat them all </button>
+	</FORM>
+</BODY>
+</HTML>
